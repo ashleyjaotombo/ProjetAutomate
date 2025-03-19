@@ -98,8 +98,6 @@ void StandardiserAutomate(Automate *automate) {
         printf("L'automate est déjà standardiser");
         return;
     }
-    else
-        {
         automate->nbEtats++;
 
         for (int i = 0; i < automate->tailleEntrees; i++)
@@ -111,7 +109,7 @@ void StandardiserAutomate(Automate *automate) {
                         while (k < automate->nbTransitions && existant==0)
                             {
 
-                            if((automate->transitions[k].destination!=automate->transitions[j].destination|| automate->transitions[k].symbole !=automate->transitions[j].symbole)) {
+                            if((automate->transitions[k].destination==automate->transitions[j].destination && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
                                 existant=1;
                             }
                             k++;
@@ -134,4 +132,3 @@ void StandardiserAutomate(Automate *automate) {
         automate->entrees[1]=100;
 
         }
-    }
