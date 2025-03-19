@@ -2,6 +2,7 @@
 #define AUTOMATE_H
 
 #define MAX_TRANSITIONS 100
+#define MAX_ETATS 50
 
 // Structure pour stocker une transition
 typedef struct {
@@ -19,6 +20,7 @@ typedef struct {
     int tailleEntrees;
     int *sorties;
     int tailleSorties;
+    int tableau_etats[MAX_ETATS];
     Transition transitions[MAX_TRANSITIONS];
 } Automate;
 
@@ -32,6 +34,11 @@ void testAutomate(Automate *automate);
 void libererAutomate(Automate *automate);
 
 void StandardiserAutomate(Automate *automate);
+
 void estStandard(Automate *automate);
+
+void afficherAutomate(char*** automate, int nbEtats, int nbSymboles);
+
+char*** creationAutomate(Automate automate1);
 
 #endif
