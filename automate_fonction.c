@@ -1,150 +1,44 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "Automate.h"
+#ifndef AUTOMATE_H
+#define AUTOMATE_H
 
-#define MAX_LIGNE 100
+#define MAX_TRANSITIONS 100
+#define MAX_ETATS 50
 
-Automate* chargerAutomate(const char *nomFichier) {
-    FILE *fichier = fopen(nomFichier, "r");
-    if (!fichier) {
-        printf("Erreur lors de l'ouverture du fichier %s\n", nomFichier);
-        return NULL;
-    }
+// Structure pour stocker une transition
+typedef struct {
+    int origine;
+    char symbole;
+    int destination;
+} Transition;
 
-    Automate *automate = malloc(sizeof(Automate));
-    char ligne[MAX_LIGNE];
+// Structure pour stocker l'automate
+typedef struct {
+    int nbEtats;
+    int nbSymboles;
+    int nbTransitions;
+    int *entrees;
+    int tailleEntrees;
+    int *sorties;
+    int tailleSorties;
+    int tableau_etats[MAX_ETATS];
+    Transition transitions[MAX_TRANSITIONS];
+} Automate;
 
-    // Lecture des données
-    fgets(ligne, sizeof(ligne), fichier);
-    sscanf(ligne, "%d", &automate->nbSymboles);
+// Fonction pour charger un automate depuis un fichier
+Automate* chargerAutomate(const char *nomFichier);
 
-    fgets(ligne, sizeof(ligne), fichier);
-    sscanf(ligne, "%d", &automate->nbEtats);
+// Fonction pour afficher un automate
+void testAutomate(Automate *automate);
 
-    // États d'entrée
-    fgets(ligne, sizeof(ligne), fichier);
-    char *token = strtok(ligne, " ");
-    sscanf(token, "%d", &automate->tailleEntrees);
-    automate->entrees = calloc(automate->tailleEntrees, sizeof(int));
-    for (int i = 0; i < automate->tailleEntrees; i++) {
-        token = strtok(NULL, " ");
-        if (token) automate->entrees[i] = atoi(token);
-    }
+// Fonction pour libérer la mémoire de l'automate
+void libererAutomate(Automate *automate);
 
-    // États de sortie
-    fgets(ligne, sizeof(ligne), fichier);
-    token = strtok(ligne, " ");
-    sscanf(token, "%d", &automate->tailleSorties);
-    automate->sorties = calloc(automate->tailleSorties, sizeof(int));
-    for (int i = 0; i < automate->tailleSorties; i++) {
-        token = strtok(NULL, " ");
-        if (token) automate->sorties[i] = atoi(token);
-    }
+void StandardiserAutomate(Automate *automate);
 
-    // Nombre de transitions
-    fgets(ligne, sizeof(ligne), fichier);
-    sscanf(ligne, "%d", &automate->nbTransitions);
+void estStandard(Automate *automate);
 
+void afficherAutomate(char*** automate, int nbEtats, int nbSymboles);
 
-    // Lecture des transitions
-    for (int i = 0; i < automate->nbTransitions; i++) {
-        fgets(ligne, sizeof(ligne), fichier);
-        sscanf(ligne, "%d%c%d",
-               &automate->transitions[i].origine,
-               &automate->transitions[i].symbole,
-               &automate->transitions[i].destination);
-    }
-    for (int i = 0; i < automate->nbEtats; i++) {
-        automate->tableau_etats[i]=i;
-    }
-    fclose(fichier);
-    return automate;
-}
+char*** creationAutomate(Automate automate1);
 
-void testAutomate(Automate *automate) {
-    printf("\n--- Automate ---\n");
-    printf("Nombre de symboles : %d\n", automate->nbSymboles);
-    printf("Nombre d'états : %d\n", automate->nbEtats);
-
-    printf("États d'entrée (%d) : ", automate->tailleEntrees);
-    for (int i = 0; i < automate->tailleEntrees; i++)
-        printf("%d ", automate->entrees[i]);
-    printf("\n");
-
-    printf("États de sortie (%d) : ", automate->tailleSorties);
-    for (int i = 0; i < automate->tailleSorties; i++)
-        printf("%d ", automate->sorties[i]);
-    printf("\n");
-
-    printf("Nombre de transitions : %d\n", automate->nbTransitions);
-    for (int i = 0; i < automate->nbTransitions; i++) {
-        printf("%d --%c--> %d\n",
-               automate->transitions[i].origine,
-               automate->transitions[i].symbole,
-               automate->transitions[i].destination);
-    }
-}
-
-void libererAutomate(Automate *automate) {
-    free(automate->entrees);
-    free(automate->sorties);
-    free(automate);
-}
-
-
-void estStandard(Automate *automate) {
-    if( automate->tailleEntrees==1) {
-        printf("L'automate est standard");
-        return;
-    }
-    printf("L'automate n'est pas standard");
-
-
-}
-
-
-void StandardiserAutomate(Automate *automate) {
-    if( automate->tailleEntrees==1) {
-        printf("L'automate est déjà standardiser");
-        return;
-    }
-    int nbrtransitioninitiale=automate->nbTransitions;
-    int k=nbrtransitioninitiale-1;
-    int existant=0;
-
-        automate->nbEtats++;
-
-        for (int i = 0; i < automate->tailleEntrees; i++)
-            {
-                for(int j = 0; j < automate->nbTransitions; j++)
-                {
-                    if(automate->entrees[i]==automate->transitions[j].origine )
-                    {
-                        while (k < automate->nbTransitions && existant==0)
-                            {
-
-                            if((automate->transitions[k].destination==automate->transitions[j].destination && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
-                                existant=1;
-                            }
-                            k++;
-                        }
-                        if(existant==0) {
-                            automate->transitions[automate->nbTransitions].destination=automate->transitions[j].destination;
-                            automate->transitions[automate->nbTransitions].origine=100;  //int choisi arbitrairement
-                            automate->transitions[automate->nbTransitions].symbole=automate->transitions[j].symbole;
-                            automate->nbTransitions++;
-                        }
-                        existant=0;
-                        k=nbrtransitioninitiale-1;
-                    }
-
-                }
-            }
-        automate->tailleEntrees=1;
-        automate->entrees = calloc(automate->tailleEntrees+1, sizeof(int));
-        automate->entrees[0]=1;
-        automate->entrees[1]=100;
-        automate->tableau_etats[automate->nbEtats-1]=100;
-
-        }
+#endif
