@@ -10,6 +10,10 @@ int main() {
     Automate *automate = chargerAutomate(nomFichier);
 
     testAutomate(automate);
+    
+    char*** notreAutomate=creationAutomate(*automate);
+
+    afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
 
     printf("\nVoulez-vous standardiser l'automate ? (1 = Oui, 2 = Non) : ");
     int choix;
