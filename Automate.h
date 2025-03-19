@@ -1,7 +1,7 @@
 #ifndef AUTOMATE_H
 #define AUTOMATE_H
 
-#define MAX_TRANSITIONS 50
+#define MAX_TRANSITIONS 100
 
 // Structure pour stocker une transition
 typedef struct {
@@ -30,5 +30,8 @@ void testAutomate(Automate *automate);
 
 // Fonction pour libérer la mémoire de l'automate
 void libererAutomate(Automate *automate);
+
+void StandardiserAutomate(Automate *automate);
+void estStandard(Automate *automate);
 
 #endif
