@@ -7,3 +7,4 @@ add_executable(projetAutomates main.c
         affichageAutomate.c
         affichageAutomate.h
         )
+s
