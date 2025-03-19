@@ -31,4 +31,10 @@ void testAutomate(Automate *automate);
 // Fonction pour libérer la mémoire de l'automate
 void libererAutomate(Automate *automate);
 
+//On cree le tableau représentant l'automate
+char*** creationAutomate(Automate);
+
+//On affiche le tableau
+void afficherAutomate(char***, int, int);
+
 #endif
