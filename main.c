@@ -17,7 +17,9 @@ int main() {
 
     if (choix == 1) {
         printf("Standardisation en cours...\n");
-        // Ici, ajouter la fonction de standardisation si nécessaire
+        StandardiserAutomate(automate);
+        testAutomate(automate);
+
     }
 
     // Libération de la mémoire

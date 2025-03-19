@@ -46,6 +46,7 @@ Automate* chargerAutomate(const char *nomFichier) {
     fgets(ligne, sizeof(ligne), fichier);
     sscanf(ligne, "%d", &automate->nbTransitions);
 
+
     // Lecture des transitions
     for (int i = 0; i < automate->nbTransitions; i++) {
         fgets(ligne, sizeof(ligne), fichier);
@@ -88,3 +89,49 @@ void libererAutomate(Automate *automate) {
     free(automate->sorties);
     free(automate);
 }
+
+void StandardiserAutomate(Automate *automate) {
+    int nbrtransitioninitiale=automate->nbTransitions;
+    int k=nbrtransitioninitiale-1;
+    int existant=0;
+    if( automate->tailleEntrees==1) {
+        printf("L'automate est déjà standardiser");
+        return;
+    }
+    else
+        {
+        automate->nbEtats++;
+
+        for (int i = 0; i < automate->tailleEntrees; i++)
+            {
+                for(int j = 0; j < automate->nbTransitions; j++)
+                {
+                    if(automate->entrees[i]==automate->transitions[j].origine )
+                    {
+                        while (k < automate->nbTransitions && existant==0)
+                            {
+
+                            if((automate->transitions[k].destination!=automate->transitions[j].destination|| automate->transitions[k].symbole !=automate->transitions[j].symbole)) {
+                                existant=1;
+                            }
+                            k++;
+                        }
+                        if(existant==0) {
+                            automate->transitions[automate->nbTransitions].destination=automate->transitions[j].destination;
+                            automate->transitions[automate->nbTransitions].origine=100;  //int choisi arbitrairement
+                            automate->transitions[automate->nbTransitions].symbole=automate->transitions[j].symbole;
+                            automate->nbTransitions++;
+                        }
+                        existant=0;
+                        k=nbrtransitioninitiale-1;
+                    }
+
+                }
+            }
+        automate->tailleEntrees=1;
+        automate->entrees = calloc(automate->tailleEntrees+1, sizeof(int));
+        automate->entrees[0]=1;
+        automate->entrees[1]=100;
+
+        }
+    }
