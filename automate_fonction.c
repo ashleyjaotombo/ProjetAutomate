@@ -55,7 +55,9 @@ Automate* chargerAutomate(const char *nomFichier) {
                &automate->transitions[i].symbole,
                &automate->transitions[i].destination);
     }
-
+    for (int i = 0; i < automate->nbEtats; i++) {
+        automate->tableau_etats[i]=i;
+    }
     fclose(fichier);
     return automate;
 }
@@ -143,5 +145,6 @@ void StandardiserAutomate(Automate *automate) {
         automate->entrees = calloc(automate->tailleEntrees+1, sizeof(int));
         automate->entrees[0]=1;
         automate->entrees[1]=100;
+        automate->tableau_etats[automate->nbEtats-1]=100;
 
         }
