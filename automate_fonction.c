@@ -141,6 +141,7 @@ void StandardiserAutomate(Automate *automate) {
     int nbrtransitioninitiale=automate->nbTransitions;
     int k=nbrtransitioninitiale-1;
     int existant=0;
+    int premier=0;
 
         automate->nbEtats++;
 
@@ -152,11 +153,18 @@ void StandardiserAutomate(Automate *automate) {
                     {
                         while (k < automate->nbTransitions && existant==0)
                         {
+                            if(premier==0) {
+                                    existant=0;
+                                    premier=1;
 
-                            if((strcmp(automate->transitions[k].destination,automate->transitions[j].destination )==0 && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
-                                existant=1;
+                                k++;
                             }
-                            k++;
+                            else {
+                                if((strcmp(automate->transitions[k].destination,automate->transitions[j].destination )==0 && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
+                                    existant=1;
+                                }
+                                k++;
+                            }
                         }
                         if(existant==0) {
                             automate->transitions[automate->nbTransitions].destination=automate->transitions[j].destination;
