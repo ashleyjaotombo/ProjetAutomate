@@ -106,20 +106,33 @@ void testAutomate(Automate *automate) {
 }
 
 void libererAutomate(Automate *automate) {
+    // Libération des entrées
     for (int i = 0; i < automate->tailleEntrees; i++) {
         free(automate->entrees[i]);
     }
     free(automate->entrees);
+
+    // Libération des sorties
     for (int i = 0; i < automate->tailleSorties; i++) {
         free(automate->sorties[i]);
     }
     free(automate->sorties);
-    for (int i = 0; i < automate->nbTransitions; i++) {
-        free(automate->transitions[i].origine);
-        free(automate->transitions[i].destination);
+
+    // Libération des états
+    for (int i = 0; i < automate->nbEtats; i++) {
+        free(automate->tableau_etats[i]);  // Libérer chaque chaîne d'état
     }
+
+    // Libération des transitions
+    for (int i = 0; i < automate->nbTransitions; i++) {
+        free(automate->transitions[i].origine);     // Libérer les chaînes d'origine
+        free(automate->transitions[i].destination); // Libérer les chaînes de destination
+    }
+
+    // Libérer la structure Automate elle-même
     free(automate);
 }
+
 
 
 void estStandard(Automate *automate) {
@@ -139,7 +152,7 @@ void StandardiserAutomate(Automate *automate) {
         return;
     }
     int nbrtransitioninitiale=automate->nbTransitions;
-    int k=nbrtransitioninitiale-1;
+    int k=nbrtransitioninitiale;
     int existant=0;
     int premier=0;
 
@@ -151,15 +164,17 @@ void StandardiserAutomate(Automate *automate) {
                 {
                     if(strcmp(automate->entrees[i],automate->transitions[j].origine )==0)
                     {
+                        if(premier==0) {
+                            existant=0;
+                            premier=1;
+
+                            k++;
+                        }
+                        else {
                         while (k < automate->nbTransitions && existant==0)
                         {
-                            if(premier==0) {
-                                    existant=0;
-                                    premier=1;
 
-                                k++;
-                            }
-                            else {
+
                                 if((strcmp(automate->transitions[k].destination,automate->transitions[j].destination )==0 && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
                                     existant=1;
                                 }
@@ -173,7 +188,7 @@ void StandardiserAutomate(Automate *automate) {
                             automate->nbTransitions++;
                         }
                         existant=0;
-                        k=nbrtransitioninitiale-1;
+                        k=nbrtransitioninitiale;
                     }
 
                 }
