@@ -23,7 +23,6 @@ Automate* chargerAutomate(const char *nomFichier) {
     sscanf(ligne, "%d", &automate->nbEtats);
 
     // États d'entrée
-    // États d'entrée
     fgets(ligne, sizeof(ligne), fichier);
     char *token = strtok(ligne, " ");
     sscanf(token, "%d", &automate->tailleEntrees);
@@ -40,14 +39,21 @@ Automate* chargerAutomate(const char *nomFichier) {
 
 
     // États de sortie
+    // États de sortie
     fgets(ligne, sizeof(ligne), fichier);
     token = strtok(ligne, " ");
     sscanf(token, "%d", &automate->tailleSorties);
     automate->sorties = calloc(automate->tailleSorties, sizeof(char*));
+
     for (int i = 0; i < automate->tailleSorties; i++) {
         token = strtok(NULL, " ");
-        if (token) automate->sorties[i] = strdup(token);
+        if (token) {
+            // Supprimer le caractère de nouvelle ligne \n s'il existe
+            token[strcspn(token, "\n")] = 0;  // strcspn() trouve l'index de '\n' et le remplace par '\0'
+            automate->sorties[i] = strdup(token);
+        }
     }
+
 
     // Nombre de transitions
     fgets(ligne, sizeof(ligne), fichier);
@@ -145,7 +151,7 @@ void StandardiserAutomate(Automate *automate) {
                     if(strcmp(automate->entrees[i],automate->transitions[j].origine )==0)
                     {
                         while (k < automate->nbTransitions && existant==0)
-                            {
+                        {
 
                             if((strcmp(automate->transitions[k].destination,automate->transitions[j].destination )==0 && automate->transitions[k].symbole ==automate->transitions[j].symbole)) {
                                 existant=1;
