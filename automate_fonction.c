@@ -106,7 +106,7 @@ void estStandard(Automate *automate) {
 
 void StandardiserAutomate(Automate *automate) {
     if( automate->tailleEntrees==1) {
-        printf("L'automate est déjà standardiser");
+        printf("L'automate est déjà standardisé");
         return;
     }
     int nbrtransitioninitiale=automate->nbTransitions;
