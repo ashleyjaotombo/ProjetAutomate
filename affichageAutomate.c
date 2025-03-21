@@ -9,7 +9,6 @@ char*** creationAutomate(Automate automate1) {
     // Allocation du tableau pour l'automate
     char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char*));
 
-
     // Initialisation des lignes du tableau de l'automate
     for (int i = 0; i <= automate1.nbEtats; i++) {
         automate[i] = malloc((automate1.nbSymboles + 2) * sizeof(char*)); // +2 car on commence à la colonne 3
@@ -21,13 +20,13 @@ char*** creationAutomate(Automate automate1) {
     // Compléter les titres des colonnes
     strcpy(automate[0][0], " ");
     strcpy(automate[0][1], "Etat");
-
+    strcpy(automate[0][2], "a");
 
     for (int i = 0; i < automate1.nbSymboles ; i++) {
         char temp[2];
-        temp[0] = 'a' + i;
+        temp[0] = 'b' + i;
         temp[1] = '\0';
-        strcpy(automate[0][i+2], temp);
+        strcpy(automate[0][i+3], temp);
     }
 
     // Compléter le nom des états
@@ -59,7 +58,7 @@ char*** creationAutomate(Automate automate1) {
                     if (automate1.transitions[i].symbole == automate[0][k][0]) {  // Vérifier si le symbole correspond
 
                         char temp[10];
-                        strcpy(temp, automate1.transitions[i].destination);
+                        sprintf(temp, "%d", automate1.transitions[i].destination);  // Convertir la destination en chaîne
 
                         // Ajouter la destination à la cellule correspondante
                         if (strlen(automate[j][k]) == 0) {
