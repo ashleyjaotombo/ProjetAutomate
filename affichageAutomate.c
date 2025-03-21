@@ -6,7 +6,7 @@
 
 char*** creationAutomate(Automate automate1) {
     // Allocation du tableau pour l'automate
-    char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char*));
+    char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char**));
 
     // Initialisation des lignes du tableau de l'automate
     for (int i = 0; i <= automate1.nbEtats; i++) {
