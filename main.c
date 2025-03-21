@@ -12,9 +12,9 @@ int main() {
 
     testAutomate(automate);
 
-//    char*** notreAutomate=creationAutomate(*automate);
+   char*** notreAutomate=creationAutomate(*automate);
 
- //   afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
+    afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
 
     printf("\nVoulez-vous standardiser l'automate ? (1 = Oui, 2 = Non) : ");
     int choix;
