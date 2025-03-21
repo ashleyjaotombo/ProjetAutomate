@@ -4,6 +4,7 @@
 #include <string.h>
 #include "Automate.h"
 
+
 char*** creationAutomate(Automate automate1) {
     // Allocation du tableau pour l'automate
     char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char*));
@@ -37,12 +38,12 @@ char*** creationAutomate(Automate automate1) {
     // Identification des états finaux et initiaux
     for (int i = 1; i <= automate1.nbEtats; i++) {
         for (int j = 0; j < automate1.tailleEntrees; j++) {
-            if (automate[i][1] == automate1.entrees[j]) {
+            if (strcmp(automate[i][1], automate1.entrees[j])==0) {
                 strcpy(automate[i][0], "E");
             }
         }
         for (int j = 0; j < automate1.tailleSorties; j++) {
-            if (automate[i][1] == automate1.sorties[j]) {
+            if (strcmp(automate[i][1], automate1.sorties[j])==0) {
                 strcat(automate[i][0], "S");
             }
         }
@@ -51,7 +52,7 @@ char*** creationAutomate(Automate automate1) {
     // On complète les transitions
     for (int i = 0; i < automate1.nbTransitions; i++) {
         for (int j = 1; j <= automate1.nbEtats; j++) {  // On commence à 1 parce qu'on commence à remplir depuis la deuxième ligne
-            if (automate1.transitions[i].origine == automate1.tableau_etats[j - 1]) {  // On fait la correspondance entre les états d'origine de transition et nos états du tableau
+            if (strcmp(automate1.transitions[i].origine, automate1.tableau_etats[j - 1])==0) {  // On fait la correspondance entre les états d'origine de transition et nos états du tableau
 
                 for (int k = 2; k < automate1.nbSymboles + 2; k++) {  // On parcourt les symboles avec k. Le premier symbole est dans la colonne 2
                     if (automate1.transitions[i].symbole == automate[0][k][0]) {  // Vérifier si le symbole correspond
