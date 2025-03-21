@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Automate.h"
@@ -10,10 +11,10 @@ int main() {
     Automate *automate = chargerAutomate(nomFichier);
 
     testAutomate(automate);
-    
-    char*** notreAutomate=creationAutomate(*automate);
-    
-    afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
+
+//    char*** notreAutomate=creationAutomate(*automate);
+
+ //   afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
 
     printf("\nVoulez-vous standardiser l'automate ? (1 = Oui, 2 = Non) : ");
     int choix;
@@ -21,12 +22,12 @@ int main() {
 
     if (choix == 1) {
         printf("Standardisation en cours...\n");
-        StandardiserAutomate(automate);
+            StandardiserAutomate(automate);
         testAutomate(automate);
 
     }
-    char*** notreAutomate=creationAutomate(*automate);
-    afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
+  //  notreAutomate=creationAutomate(*automate);
+  //  afficherAutomate(notreAutomate, automate->nbEtats, automate->nbSymboles);
 
     // Libération de la mémoire
     libererAutomate(automate);

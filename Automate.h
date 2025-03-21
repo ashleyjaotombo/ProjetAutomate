@@ -6,9 +6,9 @@
 
 // Structure pour stocker une transition
 typedef struct {
-    int origine;
+    char* origine;
     char symbole;
-    int destination;
+    char* destination;
 } Transition;
 
 // Structure pour stocker l'automate
@@ -16,11 +16,11 @@ typedef struct {
     int nbEtats;
     int nbSymboles;
     int nbTransitions;
-    int *entrees;
+    char**entrees;
     int tailleEntrees;
-    int *sorties;
+    char**sorties;
     int tailleSorties;
-    int tableau_etats[MAX_ETATS];
+    char * tableau_etats[MAX_ETATS];
     Transition transitions[MAX_TRANSITIONS];
 } Automate;
 
