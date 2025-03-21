@@ -6,44 +6,44 @@
 
 char*** creationAutomate(Automate automate1) {
     // Allocation du tableau pour l'automate
-    char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char**));
+    char ***automate = (char***)malloc((automate1.nbEtats + 1) * sizeof(char*));
 
     // Initialisation des lignes du tableau de l'automate
     for (int i = 0; i <= automate1.nbEtats; i++) {
         automate[i] = malloc((automate1.nbSymboles + 2) * sizeof(char*)); // +2 car on commence à la colonne 3
         for (int j = 0; j < automate1.nbSymboles + 2; j++) {
-            automate[i][j] = (char*)calloc(50, sizeof(char)); 
+            automate[i][j] = (char*)calloc(50, sizeof(char));
         }
     }
 
     // Compléter les titres des colonnes
-    strcpy(automate[0][0], " ");  
-    strcpy(automate[0][1], "Etat"); 
-    strcpy(automate[0][2], "a");  
-    for (int i = 0; i < automate1.nbSymboles ; i++) {  
+    strcpy(automate[0][0], " ");
+    strcpy(automate[0][1], "Etat");
+    strcpy(automate[0][2], "a");
+
+    for (int i = 0; i < automate1.nbSymboles ; i++) {
         char temp[2];
-        temp[0] = 'b' + i; 
+        temp[0] = 'b' + i;
         temp[1] = '\0';
         strcpy(automate[0][i+3], temp);
     }
 
     // Compléter le nom des états
-    strcpy(automate[1][1], "0");  // On insère le premier état manuellement
-    for (int i = 1; i < automate1.nbEtats; i++) {
-        sprintf(automate[i + 1][1], "%d", automate1.tableau_etats[i]);  // Conversion des états en chaîne
+
+    for (int i = 0; i < automate1.nbEtats; i++) {
+        strcpy(automate[i + 1][1], automate1.tableau_etats[i]);  // Conversion des états en chaîne
     }
 
     // Identification des états finaux et initiaux
     for (int i = 1; i <= automate1.nbEtats; i++) {
         for (int j = 0; j < automate1.tailleEntrees; j++) {
-            // On utilise atoi pour convertir les chaines de caractères en entier
-            if (atoi(automate[i][1]) == automate1.entrees[j]) {
-                strcpy(automate[i][0], "E"); 
+            if (automate[i][1] == automate1.entrees[j]) {
+                strcpy(automate[i][0], "E");
             }
         }
         for (int j = 0; j < automate1.tailleSorties; j++) {
-            if (atoi(automate[i][1]) == automate1.sorties[j]) {
-                strcat(automate[i][0], "S");  
+            if (automate[i][1] == automate1.sorties[j]) {
+                strcat(automate[i][0], "S");
             }
         }
     }
