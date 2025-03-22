@@ -5,7 +5,8 @@
 #include <stdbool.h>
 
 
-// Étape 1: Séparer les états finaux des non finaux
+Automate* Automate_minimiser(Automate *automate) {
+    // Étape 1: Séparer les états finaux des non finaux
     for (int i = 0; i < A->nbEtats; i++) {
         partition[i] = A->etatsFinaux[i]; // 0 = non final, 1 = final
     }
@@ -91,7 +92,5 @@
             MinA.nbTransitions++;
         }
     }
-
-    // Remplacer l'automate d'origine par l'automate minimisé
-    *A = MinA;
+    return MinaA;
 }
