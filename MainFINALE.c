@@ -10,7 +10,14 @@ int main() {
 
     Automate *automate = chargerAutomate(nomFichier);
 
-  testAutomate(automate);
+    testAutomate(automate);
+
+     char mot[100];  // Taille du mot à tester
+      printf("Entrez un mot à tester : ");
+      scanf("%s", mot);
+
+
+      testerMot(automate, mot);
 
 //char*** notreAutomate=creationAutomate(*automate);
 
