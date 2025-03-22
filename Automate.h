@@ -2,13 +2,13 @@
 #define AUTOMATE_H
 
 #define MAX_TRANSITIONS 100
-#define MAX_ETATS 50
-
+#define MAX_ETATS 100
+#include <stdbool.h>
 // Structure pour stocker une transition
 typedef struct {
-    char* origine;
+    /*int*/char *origine ;
     char symbole;
-    char* destination;
+    /*int*/char *destination;
 } Transition;
 
 // Structure pour stocker l'automate
@@ -16,13 +16,19 @@ typedef struct {
     int nbEtats;
     int nbSymboles;
     int nbTransitions;
-    char**entrees;
+    /*int*/char **entrees;
     int tailleEntrees;
-    char**sorties;
+    /*int*/char **sorties;
     int tailleSorties;
     char * tableau_etats[MAX_ETATS];
     Transition transitions[MAX_TRANSITIONS];
 } Automate;
+
+typedef struct {
+    char *etats[MAX_ETATS];  // Ensemble d'états
+    int taille;            // Nombre d'états dans l'ensemble
+} EtatAD;
+
 
 // Fonction pour charger un automate depuis un fichier
 Automate* chargerAutomate(const char *nomFichier);
@@ -35,14 +41,22 @@ void libererAutomate(Automate *automate);
 
 void StandardiserAutomate(Automate *automate);
 
-void estStandard(Automate *automate);
+bool isDeterminiser(Automate *automate);
 
-void afficherAutomate(char*** automate, int nbEtats, int nbSymboles);
+bool isComplet(Automate* automate);
 
-void testerMot(Automate *automate, char *mot) ;
+Automate Determiniser(Automate *automate);
 
-Automate* Automate_complementaire(Automate *automate);
+bool contientEtat(char *etat, EtatAD *etatAD);
 
-char*** creationAutomate(Automate automate1);
+void ajouterEtat(char *etat, EtatAD *etatAD);
+
+void trierEtatAD(EtatAD *etatAD);
+
+bool sontEgauxEtatsAD(EtatAD *a, EtatAD *b);
+
+char* concatenerEtats(EtatAD *etatAD);
+
+void creeEtatPoubelle(Automate* automate);
 
 #endif
