@@ -23,10 +23,6 @@ void testerMot(Automate *automate, char *mot) {
 
                 free(currentState);  // Libérer l'ancien état
                 currentState = strdup(automate->transitions[j].destination);
-                if (currentState == NULL) {
-                    perror("Erreur d'allocation mémoire");
-                    return;
-                }
 
                 transitionTrouvee = 1;
                 break;
