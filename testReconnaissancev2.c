@@ -5,8 +5,8 @@
 
 void testerMot(Automate *automate, char *mot) {
     printf("Test de la fonction testerMot pour le mot : %s\n", mot);
-    char* currentState = malloc(sizeof(char)*10);
-        automate->entrees[0];
+    char* currentState = strdup(automate->entrees[0]);
+
     int i = 0;
     while (mot[i] != '\0') {
         char symboleCourant = mot[i];
@@ -25,8 +25,8 @@ void testerMot(Automate *automate, char *mot) {
         }
         i++;
     }
-    for (int j = 0; i < automate->tailleSorties; j++) {
-        if (strcmp(currentState,automate->sorties[i])==0) {
+    for (int j = 0; j < automate->tailleSorties; j++) {
+        if (strcmp(currentState,automate->sorties[j])==0) {
             printf("Mot reconnu\n");
             return;
         }
