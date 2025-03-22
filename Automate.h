@@ -29,6 +29,7 @@ Automate* chargerAutomate(const char *nomFichier);
 
 // Fonction pour afficher un automate
 void testAutomate(Automate *automate);
+void testerMot(Automate *automate, char *mot) ;
 
 // Fonction pour libérer la mémoire de l'automate
 void libererAutomate(Automate *automate);
