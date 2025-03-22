@@ -105,35 +105,6 @@ void testAutomate(Automate *automate) {
     }
 }
 
-void libererAutomate(Automate *automate) {
-    // Libération des entrées
-    for (int i = 0; i < automate->tailleEntrees; i++) {
-        free(automate->entrees[i]);
-    }
-    free(automate->entrees);
-
-    // Libération des sorties
-    for (int i = 0; i < automate->tailleSorties; i++) {
-        free(automate->sorties[i]);
-    }
-    free(automate->sorties);
-
-    // Libération des états
-    for (int i = 0; i < automate->nbEtats; i++) {
-        free(automate->tableau_etats[i]);  // Libérer chaque chaîne d'état
-    }
-
-    // Libération des transitions
-    for (int i = 0; i < automate->nbTransitions; i++) {
-        free(automate->transitions[i].origine);     // Libérer les chaînes d'origine
-        free(automate->transitions[i].destination); // Libérer les chaînes de destination
-    }
-
-    // Libérer la structure Automate elle-même
-    free(automate);
-}
-
-
 
 void estStandard(Automate *automate) {
     if( automate->tailleEntrees==1) {
@@ -195,8 +166,7 @@ void StandardiserAutomate(Automate *automate) {
             }
         automate->tailleEntrees=1;
         automate->entrees = calloc(automate->tailleEntrees+1, sizeof(int));
-        automate->entrees[0]="1";
-        automate->entrees[1]="I";
+        automate->entrees[0]="I";
         automate->tableau_etats[automate->nbEtats-1]="I";
 
 
