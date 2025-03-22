@@ -1,1 +1,5 @@
-aaaa
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "Automate.h"
+#include <stdbool.h>
