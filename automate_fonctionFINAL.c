@@ -22,6 +22,12 @@ Automate* chargerAutomate(const char *nomFichier) {
     fgets(ligne, sizeof(ligne), fichier);
     sscanf(ligne, "%d", &automate->nbEtats);
 
+
+    for (int i = 0; i < automate->nbEtats; i++) {
+        automate->tableau_etats[i] = malloc(12 * sizeof(char)); // 12 pour gérer les grands entiers
+        sprintf(automate->tableau_etats[i], "%d", i);
+    }
+
     // États d'entrée
     fgets(ligne, sizeof(ligne), fichier);
     char *token = strtok(ligne, " ");
