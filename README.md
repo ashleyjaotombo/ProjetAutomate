@@ -2,9 +2,9 @@ Ce projet implémente des automates finis déterministes et non déterministes e
 Il permet de créer, manipuler et analyser des automates, avec des fonctionnalités telles que la déterminisation, la minimisation, la complémentation et la reconnaissance de mots.
 
 Structure du projet :
--Automate.h : Déclarations des structures et des fonctions liées aux automates.
--MainFINALE.c / main.c : Point d’entrée du programme.
--Determinisation.c : Fonctions pour convertir un AFN en AFD.
+-Automate.h : Déclarations des structures et des fonctions liées aux automates
+-MainFINALE.c / main.c : Point d’entrée du programme
+-Determinisation.c : Fonctions pour convertir un AFN en AFD
 -minimisation.c : Fonctions pour minimiser un AFD.
 -automate_complementaireFINAL.c : Fonctions pour générer l’automate complémentaire.
 -automate_fonctionFINAL.c : Fonctions générales de manipulation d’automates.
